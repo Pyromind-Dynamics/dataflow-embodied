@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dataflow-embodied"
+version = "0.1.3"
+description = "Episode cleaning and LeRobot v2.1 pipelines for DataFlow"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+dependencies = ["open-dataflow==1.0.11", "numpy>=1.26,<2", "pandas>=2.2,<3", "pydantic>=2.11.7,<3", "pyarrow==20.0.0", "imageio-ffmpeg>=0.6,<0.7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "build>=1.2,<2"]
+
+[tool.setuptools.packages.find]
+include = ["dataflow_embodied*"]
+
+[tool.setuptools.package-data]
+dataflow_embodied = ["data/**/*", "data/*"]
+
+[tool.pytest.ini_options]
+addopts = "--basetemp=.pytest-tmp"
+testpaths = ["test"]
+markers = ["cpu: offline tests requiring no model API or GPU", "media: FFmpeg and Parquet integration"]
